@@ -17,7 +17,7 @@ const Start = ({ navigation }) => {
 
     return (
         <ImageBackground
-            source={require('../assets/img-bg.jpg')}
+            source={require('../assets/Background-Image.png')}
             style={[styles.container, styles.image]}>
 
             <View style={styles.container}>
@@ -36,21 +36,27 @@ const Start = ({ navigation }) => {
                 />
 
                 <View>
+
+                    <View style={styles.text}>
+                        <Text
+                            style={styles.text}
+                        >Choose Background Color :</Text>
+                    </View>
                     <View style={styles.radioButtonContainer}>
                         <TouchableOpacity
-                            style={[styles.radioButton, { backgroundColor: "red" }]}
+                            style={[styles.radioButton, { backgroundColor: "#090C08" }]}
                             onPress={() => setColor("red")}
                         ></TouchableOpacity>
                         <TouchableOpacity
-                            style={[styles.radioButton, { backgroundColor: "blue" }]}
+                            style={[styles.radioButton, { backgroundColor: "#474056;" }]}
                             onPress={() => setColor("blue")}
                         ></TouchableOpacity>
                         <TouchableOpacity
-                            style={[styles.radioButton, { backgroundColor: "green" }]}
+                            style={[styles.radioButton, { backgroundColor: "#8A95A5" }]}
                             onPress={() => setColor("green")}
                         ></TouchableOpacity>
                         <TouchableOpacity
-                            style={[styles.radioButton, { backgroundColor: "yellow" }]}
+                            style={[styles.radioButton, { backgroundColor: "#B9C6AE" }]}
                             onPress={() => setColor("yellow")}
                         ></TouchableOpacity>
                     </View>
@@ -58,7 +64,7 @@ const Start = ({ navigation }) => {
                     <View style={styles.buttonContainer}>
                         <Button
                             style={styles.buttonContainer}
-                            title="Go to Chat"
+                            title="Start chatting"
                             onPress={() => navigation.navigate('Chat', { textinput: textinput })}
                         />
 
@@ -81,7 +87,10 @@ const styles = StyleSheet.create({
     },
     appTitle: {
         color: 'white',
-        fontSize: 42,
+        fontSize: 45,
+    },
+    text: {
+        fontSize: 16,
     },
 
     textInput: {
@@ -112,11 +121,12 @@ const styles = StyleSheet.create({
         height: 30,
         borderRadius: 15,
     },
-    buttonContainer: {
-        backgroundColor: 'black',
+    button: {
+        color: 'white',
+        backgroundColor: '#757083',
         padding: 10,
-
     },
+
 
 });
 
