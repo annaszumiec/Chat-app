@@ -1,40 +1,54 @@
 import { useState } from "react";
 import {
-    View,
-    Text,
-    Button,
-    TextInput,
     StyleSheet,
-    ImageBackground,
+    Text,
+    TextInput,
     TouchableOpacity,
-    KeyboardAvoidingView
+    View,
+    ImageBackground,
+    KeyboardAvoidingView,
 } from "react-native";
+import { getAuth, signInAnonymously } from "firebase/auth";
+import { Alert } from "react-native";
 
 const Start = ({ navigation }) => {
-    const [textinput, setTextinput] = useState("");
-    const [setColor] = useState("");
+    const [text, setText] = useState("");
+    const [color, setColor] = useState("");
+    const auth = getAuth();
+
+    const signInUser = () => {
+        signInAnonymously(auth)
+            .then((result) => {
+                navigation.navigate("Chat", {
+                    userID: result.user.uid,
+                    name: text ? text : "User",
+                    color: color ? color : "white",
+                });
+                Alert.alert("Signed in successfully!");
+            })
+            .catch((error) => {
+                Alert.alert("Unable to sign in, try again later.");
+            });
+    };
 
     return (
         <ImageBackground
             source={require("../assets/Background-Image.png")}
-            style={[styles.container, styles.image]}
+            resizeMode='cover'
+            style={styles.backgroundImage}
         >
             <View style={styles.container}>
-                <View style={styles.appTitle}>
-                    <Text style={styles.appTitle}>Chat App</Text>
+                <View style={styles.subContainer}>
+                    <Text style={styles.title}>Chat App!</Text>
                 </View>
+                <View style={styles.subContainer}>
+                    <TextInput
+                        placeholder='Your name'
+                        style={styles.input}
+                        onChangeText={setText}
+                    />
 
-                <TextInput
-                    style={styles.textInput}
-                    value={textinput}
-                    onChangeText={setTextinput}
-                    placeholder="Type your username here"
-                />
-
-                <View>
-                    <View style={styles.text}>
-                        <Text style={styles.text}>Choose Background Color :</Text>
-                    </View>
+                    <Text>Choose Background Color</Text>
                     <View style={styles.radioButtonContainer}>
                         <TouchableOpacity
                             style={[styles.radioButton, { backgroundColor: "#090C08" }]}
@@ -53,58 +67,49 @@ const Start = ({ navigation }) => {
                             onPress={() => setColor("#B9C6AE")}
                         ></TouchableOpacity>
                     </View>
-
-                    <View style={styles.buttonContainer}>
-                        <Button
-                            style={styles.buttonContainer}
-                            title="Start chatting"
-                            onPress={() =>
-                                navigation.navigate("Chat", { textinput: textinput })
-                            }
-                        />
-                        {Platform.OS === "ios" ? (
-                            <KeyboardAvoidingView behavior="height" />
-                        ) : null}
-                    </View>
+                    <TouchableOpacity style={styles.button} onPress={signInUser}>
+                        <Text>Go to Chat</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
-
+            {Platform.OS === "ios" ? (
+                <KeyboardAvoidingView behavior='padding' />
+            ) : null}
         </ImageBackground>
     );
 };
 
 const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+    },
     container: {
         flex: 1,
+        alignItems: "center",
         justifyContent: "center",
+    },
+    subContainer: {
+        flex: 1,
         alignItems: "center",
-    },
-    appTitle: {
-        color: "white",
-        fontSize: 45,
-    },
-    text: {
-        fontSize: 16,
-    },
-
-    textInput: {
+        justifyContent: "center",
         width: "88%",
-        padding: 15,
-        borderWidth: 1,
-        marginTop: 15,
-        marginBottom: 15,
-        backgroundColor: "#fff",
-        opacity: 0.5,
     },
-    image: {
-        alignItems: "center",
-    },
-
     radioButtonContainer: {
         width: "70%",
         flexDirection: "row",
         justifyContent: "space-around",
         margin: 20,
+    },
+    title: {
+        fontWeight: "bold",
+        fontSize: 30,
+    },
+    button: {
+        alignItems: "center",
+        backgroundColor: "#DDDDDD",
+        padding: 10,
+        borderRadius: 2,
+        backgroundColor: '#D3E0EB',
     },
     radioButton: {
         backgroundColor: "black",
@@ -112,9 +117,11 @@ const styles = StyleSheet.create({
         height: 30,
         borderRadius: 15,
     },
-    button: {
-        color: "white",
-        backgroundColor: "#757083",
+    input: {
+        height: 40,
+        width: "88%",
+        margin: 12,
+        borderWidth: 3,
         padding: 10,
     },
 });
