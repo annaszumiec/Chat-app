@@ -1,4 +1,4 @@
-import { Alert, StyleSheet } from "react-native";
+import { Alert } from "react-native";
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
