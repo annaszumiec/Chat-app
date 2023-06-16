@@ -41,6 +41,7 @@ const Start = ({ navigation }) => {
                 <View style={styles.subContainer}>
                     <Text style={styles.title}>Chat App!</Text>
                 </View>
+
                 <View style={styles.subContainer}>
                     <TextInput
                         placeholder='Your name'
@@ -67,8 +68,10 @@ const Start = ({ navigation }) => {
                             onPress={() => setColor("#B9C6AE")}
                         ></TouchableOpacity>
                     </View>
-                    <TouchableOpacity style={styles.button} onPress={signInUser}>
-                        <Text>Go to Chat</Text>
+                    <TouchableOpacity style={[styles.button, styles.shadowProp, styles.text]} onPress={signInUser}>
+                        <Text
+                            style={styles.text}
+                        >Start chatting</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -86,19 +89,22 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "bottom",
     },
     subContainer: {
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
         width: "88%",
+
+
     },
     radioButtonContainer: {
         width: "70%",
         flexDirection: "row",
         justifyContent: "space-around",
         margin: 20,
+
     },
     title: {
         fontWeight: "bold",
@@ -106,11 +112,23 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#DDDDDD",
-        padding: 10,
+        padding: 15,
         borderRadius: 2,
-        backgroundColor: '#D3E0EB',
+        backgroundColor: '#757083',
+        width: "85%",
+        margin: 10,
     },
+    text: {
+        color: 'white',
+        fontWeight: 600,
+    },
+    shadowProp: {
+        shadowColor: '#171717',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.4,
+        shadowRadius: 2,
+    },
+
     radioButton: {
         backgroundColor: "black",
         width: 30,
@@ -121,8 +139,9 @@ const styles = StyleSheet.create({
         height: 40,
         width: "88%",
         margin: 12,
-        borderWidth: 3,
+
         padding: 10,
+        backgroundColor: "white"
     },
 });
 

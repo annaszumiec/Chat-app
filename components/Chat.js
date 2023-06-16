@@ -78,26 +78,18 @@ const Chat = ({ isConnected, db, route, navigation, storage }) => {
   };
 
   const renderBubble = (props) => {
-    return (
-      <Bubble
-        {...props}
-        textStyle={{
-          right: {
-            color:
-              (color === "white") | (color === "yellow") ? "black" : "white",
-          },
-        }}
-        wrapperStyle={{
-          right: {
-            backgroundColor: color,
-          },
-          left: {
-            backgroundColor: "#FFF",
-          },
-        }}
-      />
-    );
-  };
+    return <Bubble
+      {...props} //fuction starts by inheriting props keyword
+      wrapperStyle={{ //new wrapperStyle
+        right: {
+          backgroundColor: '#000'
+        },
+        left: {
+          backgroundColor: '#FFF'
+        }
+      }}
+    />
+  }
 
   const renderCustomActions = (props) => {
     return <CustomActions storage={storage} {...props} />;
@@ -122,7 +114,7 @@ const Chat = ({ isConnected, db, route, navigation, storage }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: color }]}>
       <GiftedChat
         style={styles.textingBox}
         messages={messages}
@@ -133,8 +125,11 @@ const Chat = ({ isConnected, db, route, navigation, storage }) => {
         onSend={(messages) => onSend(messages)}
         user={{
           _id: userID,
+          name: name
         }}
-        name={{ name: name }}
+        showAvatarForEveryMessage
+        showUserAvatar
+
       />
       {Platform.OS === "android" ? (
         <KeyboardAvoidingView behavior='height' />
