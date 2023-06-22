@@ -15,6 +15,7 @@ const Start = ({ navigation }) => {
     const [text, setText] = useState("");
     const [color, setColor] = useState("");
     const auth = getAuth();
+    const colors = ["#090C08", "#474056", "#8A95A5", "#B9C6AE"];
 
     const signInUser = () => {
         signInAnonymously(auth)
@@ -51,22 +52,12 @@ const Start = ({ navigation }) => {
 
                     <Text>Choose Background Color</Text>
                     <View style={styles.radioButtonContainer}>
-                        <TouchableOpacity
-                            style={[styles.radioButton, { backgroundColor: "#090C08" }]}
-                            onPress={() => setColor("#090C08")}
-                        ></TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.radioButton, { backgroundColor: "#474056" }]}
-                            onPress={() => setColor("#474056")}
-                        ></TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.radioButton, { backgroundColor: "#8A95A5" }]}
-                            onPress={() => setColor("#8A95A5")}
-                        ></TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.radioButton, { backgroundColor: "#B9C6AE" }]}
-                            onPress={() => setColor("#B9C6AE")}
-                        ></TouchableOpacity>
+                        {colors.forEach(c =>
+                            <TouchableOpacity
+                                style={[styles.radioButton, { backgroundColor: c }]}
+                                onPress={() => setColor(c)}
+                            ></TouchableOpacity>
+                        )}
                     </View>
                     <TouchableOpacity style={[styles.button, styles.shadowProp, styles.text]} onPress={signInUser}>
                         <Text
